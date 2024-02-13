@@ -1,10 +1,11 @@
 import React from "react";
 import HeartIcon from '../../assets/heart.svg';
 
-export default function Favourite() {
+// eslint-disable-next-line react/prop-types
+export default function Favourite({setShowFavModal}) {
     return (
         <>
-            <div className="p-2 hover:bg-black/30 cursor-pointer flex gap-2 items-center rounded-md transition-all">
+            <div onClick={setShowFavModal} className="p-2 hover:bg-black/30 cursor-pointer flex gap-2 items-center rounded-md transition-all">
                 <img src={HeartIcon} alt="heart" />
                 <span>Favourite Locations</span>
             </div>

@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
+import { LocationContext } from "../context";
 
 const useWeather = () => {
+
     const [weatherData, setWeatherData] = useState({
         location: "",
         climate: "",
@@ -21,7 +23,8 @@ const useWeather = () => {
         message: "",
     });
     const [error, setError] = useState(null);
-
+    const selectedLocation = useContext(LocationContext);
+       console.log(selectedLocation);
 
     useEffect(() => {
         setLoading({ state: true, message: "Fetching location" });
