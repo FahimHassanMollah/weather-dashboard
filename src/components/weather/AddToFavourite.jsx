@@ -1,4 +1,3 @@
-import React from "react";
 import HeartIcon from '../../assets/heart.svg'
 
 export default function AddToFavourite() {
