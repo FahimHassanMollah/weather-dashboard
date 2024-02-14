@@ -23,19 +23,12 @@ const useWeather = () => {
         message: "",
     });
     const [error, setError] = useState(null);
-    const selectedLocation = useContext(LocationContext);
-       console.log(selectedLocation);
-
+    const {selectedLocation} = useContext(LocationContext);
+    const {latitude, longitude} = selectedLocation;  
+   
     useEffect(() => {
-        setLoading({ state: true, message: "Fetching location" });
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                fetchWeatherData(position.coords.latitude, position.coords.longitude);
-            });
-        }
-
         const fetchWeatherData = async (latitude, longitude) => {
-            setLoading({ state: true, message: "Fetching weather data" });
+            setLoading({ state: true, message: "Finding Location" });
             try {
                 const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`);
                 if (!response.ok) {
@@ -64,11 +57,23 @@ const useWeather = () => {
                 setLoading({ state: false, message: "" });
             }
         }
+        setLoading({ state: true, message: "Fetching location" });
+        if (latitude && longitude) {
+            fetchWeatherData(latitude, longitude);
+            return;           
+        }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                fetchWeatherData(position.coords.latitude, position.coords.longitude);
+            });
+        }
+
+       
 
         return () => {
 
         }
-    }, [])
+    }, [latitude, longitude])
 
     return { weatherData, loading, error };
 

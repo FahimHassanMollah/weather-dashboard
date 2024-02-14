@@ -7,7 +7,7 @@ const LocationProvider = ({children}) => {
     latitude: 0,
     longitude: 0,
     location: ""
- })
+ });
   return (
     <LocationContext.Provider value={{selectedLocation, setSelectedLocation}}>
       {children}
